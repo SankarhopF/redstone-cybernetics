@@ -85,9 +85,10 @@ public final class SurgeryManager {
         double x = pos.getX() + 0.5;
         double y = pos.getY() + OperatingTableBlock.SURFACE_HEIGHT;
         double z = pos.getZ() + 0.5;
+        // Ось тела = направление взгляда в момент использования стола.
+        // Клиент ставит по ней фиксированную камеру операции (со стороны ног).
         float yaw = player.getYaw();
-        // Небольшой наклон «вверх», чтобы камера третьего лица смотрела на лежащего сверху.
-        float cameraPitch = 26.0f;
+        float cameraPitch = 0.0f;
 
         Session session = new Session(player.getUuid(), pos.toImmutable(), x, y, z, yaw);
         SESSIONS.put(player.getUuid(), session);
@@ -100,7 +101,7 @@ public final class SurgeryManager {
         player.fallDistance = 0.0f;
 
 
-        ModPackets.sendOpenTable(player, session.tablePos);
+        ModPackets.sendOpenTable(player, session.tablePos, session.yaw);
         ModPackets.sendSync(player);
         return true;
     }

@@ -205,8 +205,128 @@ def surgery():
     return img.convert("RGB")
 
 
+
+# ------------------------------------------------------------------ тумблеры имплантов
+def abilities():
+    """Меню отключения возможностей (AbilityScreen): блюр мира + панель с тумблерами."""
+    img = fake_world_blurred().convert("RGBA")
+    dark = Image.new("RGBA", (W, H))
+    dd = ImageDraw.Draw(dark)
+    for y in range(H):
+        a = int(0xA0 + (0xD0 - 0xA0) * (y / H))
+        dd.line([(0, y), (W, y)], fill=(0, 0, 0, a))
+    img.alpha_composite(dark)
+
+    d = ImageDraw.Draw(img)
+    PW_GUI, ROW_H = 320, 26
+    rows = [
+        ("cyber_eye", "Кибернетический глаз", "Глаз", True),
+        ("cyber_arm", "Кибернетическая рука", "Рука", True),
+        ("cyber_legs", "Кибернетические ноги", "Ноги", False),
+    ]
+    panel_h_gui = 64 + max(1, len(rows)) * ROW_H + 28
+    PX = (W - PW_GUI * S) // 2
+    PY = (H - panel_h_gui * S) // 2
+    PH = panel_h_gui * S
+
+    d.rectangle([PX - 3 * S, PY - 3 * S, PX + PW_GUI * S + 3 * S, PY + PH + 3 * S], fill=(0, 0, 0, 128))
+    d.rectangle([PX, PY, PX + PW_GUI * S, PY + PH], fill=COL_PANEL)
+    d.rectangle([PX, PY, PX + PW_GUI * S, PY + PH], outline=COL_BORDER, width=S)
+    d.rectangle([PX, PY, PX + PW_GUI * S, PY + 3 * S], fill=COL_ACCENT)
+
+    text(d, (PX + 12 * S, PY + 12 * S), "ВОЗМОЖНОСТИ КИБЕРНЕТИКИ", font(6, True))
+    text(d, (PX + 12 * S, PY + 26 * S), "Удерживайте G, чтобы открыть · включение и отключение имплантов",
+         font(5), COL_MUTED)
+    d.rectangle([PX + 12 * S, PY + 40 * S, PX + (PW_GUI - 12) * S, PY + 41 * S], fill=COL_BORDER)
+
+    for i, (tex, name, slot, enabled) in enumerate(rows):
+        ry = PY + (52 + i * ROW_H) * S
+        d.rectangle([PX + 12 * S, ry, PX + (PW_GUI - 12) * S, ry + (ROW_H - 2) * S], fill=(26, 31, 38, 255))
+        img.alpha_composite(icon(tex), (PX + 16 * S, ry + 5 * S))
+        text(d, (PX + 38 * S, ry + 3 * S), name, font(6), COL_TEXT)
+        text(d, (PX + 38 * S, ry + 14 * S), slot, font(5), COL_MUTED)
+        button(d, (PX + (PW_GUI - 96) * S) / S, (ry + 3 * S) / S, 84, 20,
+               "ВКЛ" if enabled else "ВЫКЛ", active=enabled,
+               accent=False)
+
+    button(d, (PX + (PW_GUI - 120) / 2 * S) / S, (PY + PH - 26 * S) / S, 120, 20, "Закрыть", active=True)
+    return img.convert("RGB")
+
+
+# ------------------------------------------------------------------ визор кибернетического глаза
+def eye():
+    """HUD кибернетического глаза (CyberEyeOverlay): виньетка, сканлайны, прицел, телеметрия."""
+    img = fake_world_blurred().filter(ImageFilter.GaussianBlur(1.2)).convert("RGBA")
+    GREEN = (111, 247, 200)
+    GREEN_DIM = (58, 217, 166)
+    CYAN = (127, 228, 255)
+
+    # полупрозрачные слои рисуем отдельно и только потом накладываем —
+    # иначе ImageDraw просто затирает пиксели вместо смешивания
+    ov = Image.new("RGBA", (W, H), (0, 0, 0, 0))
+    od = ImageDraw.Draw(ov)
+
+    edge = max(16, 360 // 10) * S
+    for i in range(edge):
+        a_top = int(0xE0 * (1 - i / edge))
+        od.line([(0, i), (W, i)], fill=(4, 18, 12, a_top))
+        od.line([(0, H - 1 - i), (W, H - 1 - i)], fill=(4, 18, 12, a_top))
+    od.rectangle([0, edge, 12 * S, H - edge], fill=(4, 18, 12, 0x30))
+    od.rectangle([W - 12 * S, edge, W, H - edge], fill=(4, 18, 12, 0x30))
+
+    for y in range(4 * S, H, 4 * S):
+        a = 0x1E if (y // (4 * S)) % 8 == 0 else 0x10
+        od.line([(0, y), (W, y)], fill=(11, 255, 180, a))
+
+    sweep = H // 3
+    for i in range(10 * S):
+        a = int(0x22 * (i / (10 * S)))
+        od.line([(0, sweep - 10 * S + i), (W, sweep - 10 * S + i)], fill=(0, 255, 200, a))
+    od.line([(0, sweep), (W, sweep)], fill=(0, 255, 200, 0x66))
+    img.alpha_composite(ov)
+
+    d = ImageDraw.Draw(img)
+    pad = edge - 6 * S
+    arm = 22 * S
+    th = 2 * S
+    for (bx, by, sx, sy) in [(pad, pad, 1, 1), (W - pad, pad, -1, 1), (pad, H - pad, 1, -1), (W - pad, H - pad, -1, -1)]:
+        d.rectangle([min(bx, bx + sx * arm), min(by, by + sy * th),
+                     max(bx, bx + sx * arm), max(by, by + sy * th)], fill=GREEN_DIM + (255,))
+        d.rectangle([min(bx, bx + sx * th), min(by, by + sy * arm),
+                     max(bx, bx + sx * th), max(by, by + sy * arm)], fill=GREEN_DIM + (255,))
+
+    cx, cy = W // 2, H // 2
+    gap, ra = 5 * S, 12 * S
+    for (x0, y0, x1, y1) in [
+        (cx - gap - ra, cy, cx - gap, cy + S), (cx + gap, cy, cx + gap + ra, cy + S),
+        (cx, cy - gap - ra, cx + S, cy - gap), (cx, cy + gap, cx + S, cy + gap + ra),
+    ]:
+        d.rectangle([x0, y0, x1, y1], fill=GREEN + (255,))
+    box = 10 * S
+    d.rectangle([cx - box, cy - box, cx + box, cy - box + S], fill=GREEN_DIM + (255,))
+    d.rectangle([cx - box, cy + box, cx + box, cy + box + S], fill=GREEN_DIM + (255,))
+    d.rectangle([cx - box, cy - box, cx - box + S, cy + box], fill=GREEN_DIM + (255,))
+    d.rectangle([cx + box, cy - box, cx + box + S, cy + box], fill=GREEN_DIM + (255,))
+    line_y = H // 2 + H // 6
+    d.rectangle([cx - 40 * S, line_y, cx - 8 * S, line_y + S], fill=(69, 242, 190, 0x80))
+    d.rectangle([cx + 8 * S, line_y, cx + 40 * S, line_y + S], fill=(69, 242, 190, 0x80))
+
+    tx, ty = edge + 6 * S, edge + 4 * S
+    text(d, (tx, ty), "OPTIC // RC-EYE 1.1", font(6, True), GREEN + (255,))
+    text(d, (tx, ty + 11 * S), "SCAN MODE: ACTIVE", font(5), GREEN_DIM + (255,))
+    text(d, (tx, ty + 24 * S), "Камень  3.4м  [128 64 -37]", font(6), CYAN + (255,))
+    pos = "POS 128 64 -37"
+    hp = "VIT 86%"
+    f = font(5)
+    text(d, (W - edge - 6 * S - d.textlength(pos, font=f), ty), pos, f, GREEN_DIM + (255,))
+    text(d, (W - edge - 6 * S - d.textlength(hp, font=f), ty + 11 * S), hp, f, GREEN_DIM + (255,))
+    return img.convert("RGB")
+
+
 if __name__ == "__main__":
     os.makedirs("docs", exist_ok=True)
     menu().save("docs/preview_menu.png")
     surgery().save("docs/preview_surgery.png")
+    abilities().save("docs/preview_abilities.png")
+    eye().save("docs/preview_eye.png")
     print("previews generated")

@@ -61,5 +61,14 @@
   "redcyber.msg.installed": "%s installed successfully",
   "block.redcyber.operating_table.desc": "A steel slab wired with redstone. Cybernetic surgery is performed here.",
   "block.redcyber.operating_table.usage": "Right-click to lie down and implant cybernetics",
-  "redcyber.msg.table_busy": "Someone is already on this table"
+  "redcyber.msg.table_busy": "Someone is already on this table",
+  "key.categories.redcyber": "Redstone Cybernetics",
+  "key.redcyber.abilities": "Implant ability toggles (hold)",
+  "redcyber.screen.abilities.title": "CYBERNETIC ABILITIES",
+  "redcyber.screen.abilities.subtitle": "Hold G to open · enable or disable every implant",
+  "redcyber.screen.abilities.on": "ON",
+  "redcyber.screen.abilities.off": "OFF",
+  "redcyber.screen.abilities.empty": "No implants yet — lie down on an operating table first",
+  "redcyber.screen.abilities.close": "Close",
+  "redcyber.msg.abilities_hint": "Hold %s to open the abilities menu"
 }

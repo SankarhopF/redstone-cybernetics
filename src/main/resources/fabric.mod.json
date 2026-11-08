@@ -24,6 +24,9 @@
       "environment": "*"
     }
   ],
+  "recommends": {
+    "playeranimator": ">=2.0.0"
+  },
   "depends": {
     "fabricloader": ">=${loader_version}",
     "minecraft": "~1.21.1",

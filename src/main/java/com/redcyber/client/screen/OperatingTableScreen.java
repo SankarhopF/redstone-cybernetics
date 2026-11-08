@@ -2,6 +2,7 @@ package com.redcyber.client.screen;
 
 import com.redcyber.client.CameraRig;
 import com.redcyber.client.ClientCyberData;
+import com.redcyber.client.ClientTableState;
 import com.redcyber.core.CyberPart;
 import com.redcyber.core.CyberParts;
 import com.redcyber.net.ModPackets;
@@ -280,6 +281,7 @@ public class OperatingTableScreen extends Screen {
             if (ClientPlayNetworking.canSend(ModPackets.CloseTableC2S.ID)) {
                 ClientPlayNetworking.send(new ModPackets.CloseTableC2S());
             }
+            ClientTableState.end();
             CameraRig.restore();
         }
         super.removed();

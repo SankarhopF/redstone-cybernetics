@@ -61,5 +61,14 @@
   "redcyber.msg.installed": "Установлено: %s",
   "block.redcyber.operating_table.desc": "Стальная плита, оплетённая редстоуном. Здесь проводят кибернетические операции.",
   "block.redcyber.operating_table.usage": "ПКМ — лечь и установить имплант",
-  "redcyber.msg.table_busy": "За этим столом уже кто-то лежит"
+  "redcyber.msg.table_busy": "За этим столом уже кто-то лежит",
+  "key.categories.redcyber": "Redstone Cybernetics",
+  "key.redcyber.abilities": "Тумблеры имплантов (удерживать)",
+  "redcyber.screen.abilities.title": "ВОЗМОЖНОСТИ КИБЕРНЕТИКИ",
+  "redcyber.screen.abilities.subtitle": "Удерживайте G, чтобы открыть · включение и отключение имплантов",
+  "redcyber.screen.abilities.on": "ВКЛ",
+  "redcyber.screen.abilities.off": "ВЫКЛ",
+  "redcyber.screen.abilities.empty": "Имплантов пока нет — сначала лягте на операционный стол",
+  "redcyber.screen.abilities.close": "Закрыть",
+  "redcyber.msg.abilities_hint": "Удерживайте %s, чтобы открыть меню возможностей"
 }

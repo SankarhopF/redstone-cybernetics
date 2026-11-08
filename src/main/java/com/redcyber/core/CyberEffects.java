@@ -58,7 +58,6 @@ public final class CyberEffects {
 
     /** Пересчитывает все модификаторы и статус-эффекты по текущему набору имплантов. */
     public static void refresh(ServerPlayerEntity player) {
-        Map<CyberSlot, String> installed = CyberData.parts(player);
 
         for (CyberSlot slot : CyberSlot.values()) {
             List<Mod> mods = MODIFIERS.getOrDefault(slot, List.of());
@@ -70,20 +69,20 @@ public final class CyberEffects {
                 }
                 var id = RedCyber.id("implant_" + slot.lowerName() + "_" + i);
                 instance.removeModifier(id);
-                if (installed.containsKey(slot)) {
+                if (CyberData.isEnabled(player, slot)) {
                     instance.addPersistentModifier(new EntityAttributeModifier(id, mod.value(),
                             EntityAttributeModifier.Operation.ADD_VALUE));
                 }
             }
         }
 
-        if (installed.containsKey(CyberSlot.EYE)) {
+        if (CyberData.isEnabled(player, CyberSlot.EYE)) {
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.NIGHT_VISION, 500, 0, true, false, false));
         }
-        if (installed.containsKey(CyberSlot.LUNG)) {
+        if (CyberData.isEnabled(player, CyberSlot.LUNG)) {
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.WATER_BREATHING, 500, 0, true, false, false));
         }
-        if (installed.containsKey(CyberSlot.HEART)) {
+        if (CyberData.isEnabled(player, CyberSlot.HEART)) {
             player.addStatusEffect(new StatusEffectInstance(StatusEffects.REGENERATION, 120, 0, true, false, true));
         }
     }

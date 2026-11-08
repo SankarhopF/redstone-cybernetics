@@ -4,6 +4,7 @@ import net.minecraft.entity.player.PlayerEntity;
 
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
 /** Утилиты для чтения/записи установленных имплантов. */
 public final class CyberData {
@@ -20,6 +21,54 @@ public final class CyberData {
 
     public static String partName(PlayerEntity player, CyberSlot slot) {
         return parts(player).get(slot);
+    }
+
+    /** Слоты, у которых игрок выключил дополнительные возможности. */
+    public static Set<CyberSlot> disabled(PlayerEntity player) {
+        return ((CyberAccess) player).redcyber$getDisabled();
+    }
+
+    /**
+     * Имплант стоит в слоте и его возможности включены. Все эффекты проверяют
+     * именно это, чтобы тумблеры из меню работали.
+     */
+    public static boolean isEnabled(PlayerEntity player, CyberSlot slot) {
+        return has(player, slot) && !disabled(player).contains(slot);
+    }
+
+    public static void setEnabled(PlayerEntity player, CyberSlot slot, boolean enabled) {
+        Set<CyberSlot> off = disabled(player);
+        if (enabled) {
+            off.remove(slot);
+        } else {
+            off.add(slot);
+        }
+    }
+
+    /** Сериализация выключенных слотов для сети: "EYE,ARM". */
+    public static String encodeDisabled(Set<CyberSlot> slots) {
+        StringBuilder sb = new StringBuilder();
+        for (CyberSlot slot : slots) {
+            if (sb.length() > 0) {
+                sb.append(',');
+            }
+            sb.append(slot.name().toUpperCase(Locale.ROOT));
+        }
+        return sb.toString();
+    }
+
+    public static void decodeDisabled(String data, Set<CyberSlot> target) {
+        target.clear();
+        if (data == null || data.isEmpty()) {
+            return;
+        }
+        for (String entry : data.split(",")) {
+            try {
+                target.add(CyberSlot.valueOf(entry.trim().toUpperCase(Locale.ROOT)));
+            } catch (IllegalArgumentException ignored) {
+                // неизвестный слот — пропускаем
+            }
+        }
     }
 
     public static void install(PlayerEntity player, CyberPart part) {

@@ -44,6 +44,11 @@ public final class ClientSurgeryState {
         return activePart;
     }
 
+    /** Слот, который сейчас меняют (для выбора анимации операции). */
+    public static CyberSlot slot() {
+        return activeSlot;
+    }
+
     public static float progress() {
         return MathHelper.clamp(ticks / (float) duration, 0.0f, 1.0f);
     }

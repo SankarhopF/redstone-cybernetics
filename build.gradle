@@ -12,6 +12,11 @@ base {
 
 repositories {
     mavenCentral()
+    // PlayerAnimator — библиотека поз/анимаций (мягкая зависимость, см. README)
+    maven {
+        name = "KosmX"
+        url = "https://maven.kosmx.dev/"
+    }
 }
 
 dependencies {
@@ -19,6 +24,10 @@ dependencies {
     mappings "net.fabricmc:yarn:${project.yarn_mappings}:v2"
     modImplementation "net.fabricmc:fabric-loader:${project.loader_version}"
     modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
+
+    // PlayerAnimator: только для компиляции. В рантайме мод работает и без него
+    // (fallback на обычную позу), с ним — плавные анимации операции.
+    modCompileOnly "dev.kosmx.player-anim:player-animation-lib-fabric:${project.playeranim_version}"
 }
 
 processResources {

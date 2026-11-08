@@ -1,0 +1,70 @@
+{
+  "name": "surgery_head",
+  "version": 3,
+  "author": "Redstone Cybernetics",
+  "description": "surgery animation",
+  "emote": {
+    "beginTick": 0,
+    "endTick": 100,
+    "stopTick": 100,
+    "isLoop": true,
+    "returnTick": 0,
+    "degrees": true,
+    "moves": [
+      {
+        "tick": 0,
+        "easing": "inoutsine",
+        "head": {
+          "yaw": 0.0,
+          "pitch": 0.0,
+          "roll": 0.0
+        }
+      },
+      {
+        "tick": 18,
+        "easing": "inoutsine",
+        "head": {
+          "yaw": 14.0,
+          "pitch": 3.0,
+          "roll": -4.0
+        }
+      },
+      {
+        "tick": 38,
+        "easing": "inoutsine",
+        "head": {
+          "yaw": 6.0,
+          "pitch": -2.0,
+          "roll": 2.0
+        }
+      },
+      {
+        "tick": 58,
+        "easing": "inoutsine",
+        "head": {
+          "yaw": 16.0,
+          "pitch": 4.0,
+          "roll": -6.0
+        }
+      },
+      {
+        "tick": 80,
+        "easing": "inoutsine",
+        "head": {
+          "yaw": 4.0,
+          "pitch": 0.0,
+          "roll": 0.0
+        }
+      },
+      {
+        "tick": 100,
+        "easing": "inoutsine",
+        "head": {
+          "yaw": 0.0,
+          "pitch": 0.0,
+          "roll": 0.0
+        }
+      }
+    ]
+  }
+}
