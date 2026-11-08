@@ -1,5 +1,11 @@
 # Redstone Cybernetics — кибернетика на редстоуне (Fabric 1.21.1)
 
+[![Скачать jar](https://img.shields.io/badge/download-redcyber--1.0.0.jar-E02231?style=flat-square)](https://github.com/SankarhopF/redstone-cybernetics/releases/latest/download/redcyber-1.0.0.jar)
+[![Minecraft](https://img.shields.io/badge/Minecraft-1.21.1-3C8527?style=flat-square)](https://www.minecraft.net)
+[![Fabric](https://img.shields.io/badge/Fabric_Loder-%E2%89%A50.16.0-DBB69C?style=flat-square)](https://fabricmc.net)
+
+![Меню операционного стола](docs/preview_menu.png)
+
 Мод добавляет **кибернетические части тела из редстоуна**, редстоуновые компоненты для них
 и **операционный стол**: нажимаете на стол — персонаж ложится, камера уходит в третье лицо
 и смотрит на него, открывается меню с **настоящим размытием мира** (сама панель меню остаётся
@@ -11,6 +17,8 @@
 ---
 
 ## 1. Готовый файл
+
+**Скачать:** https://github.com/SankarhopF/redstone-cybernetics/releases/download/v1.0.0/redcyber-1.0.0.jar
 
 ```
 release/redcyber-1.0.0.jar          ← это и кидаем в mods/
@@ -163,8 +171,16 @@ A G A          R = блок редстоуна
 
 ## 6. Превью интерфейса
 
-`docs/preview_menu.png` — меню стола (слева список имплантов, справа компоненты и кнопка).
-`docs/preview_surgery.png` — анимация операции.
+**Меню операционного стола** — слева список имплантов (галочка = уже стоит), справа слот тела,
+эффект, нужные компоненты с наличием `есть/нужно` и кнопка операции. Фон — настоящий блюр мира,
+панель чёткая.
+
+![Меню операционного стола](docs/preview_menu.png)
+
+**Анимация операции** — кинематографические полосы, прогресс, фазы, искры редстоуна;
+мир при этом виден, камера в третьем лице смотрит на лежащего персонажа.
+
+![Анимация операции](docs/preview_surgery.png)
 
 > Это отрендеренные макеты по реальным координатам из кода (`tools/make_previews.py`),
 > а не скриншоты из игры — фон в игре будет настоящим размытым миром, а на столе будет лежать
