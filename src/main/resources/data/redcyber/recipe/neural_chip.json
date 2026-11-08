@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "RGR",
+    "ECE",
+    "RGR"
+  ],
+  "key": {
+    "R": {
+      "item": "minecraft:redstone"
+    },
+    "G": {
+      "item": "minecraft:gold_ingot"
+    },
+    "C": {
+      "item": "redcyber:redstone_circuit"
+    },
+    "E": {
+      "item": "minecraft:ender_pearl"
+    }
+  },
+  "result": {
+    "id": "redcyber:neural_chip",
+    "count": 1
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": 1,
+  "id": "redcyber",
+  "version": "${version}",
+  "name": "Redstone Cybernetics",
+  "description": "Кибернетические части тела на редстоуне: компоненты, операционный стол с меню имплантации (блюр фона, третье лицо) и анимацией операции.",
+  "authors": [
+    "Arena Agent"
+  ],
+  "license": "MIT",
+  "icon": "assets/redcyber/icon.png",
+  "environment": "*",
+  "entrypoints": {
+    "main": [
+      "com.redcyber.RedCyber"
+    ],
+    "client": [
+      "com.redcyber.client.RedCyberClient"
+    ]
+  },
+  "mixins": [
+    {
+      "config": "redcyber.mixins.json",
+      "environment": "*"
+    }
+  ],
+  "depends": {
+    "fabricloader": ">=${loader_version}",
+    "minecraft": "~1.21.1",
+    "java": ">=21",
+    "fabric-api": "*"
+  }
+}

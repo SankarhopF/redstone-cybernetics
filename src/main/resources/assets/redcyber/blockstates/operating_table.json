@@ -1,0 +1,10 @@
+{
+  "variants": {
+    "lit=false": {
+      "model": "redcyber:block/operating_table"
+    },
+    "lit=true": {
+      "model": "redcyber:block/operating_table_lit"
+    }
+  }
+}

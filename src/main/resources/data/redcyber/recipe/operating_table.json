@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "AAA",
+    "IRI",
+    "I I"
+  ],
+  "key": {
+    "A": {
+      "item": "redcyber:redstone_alloy_ingot"
+    },
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "R": {
+      "item": "minecraft:redstone_block"
+    }
+  },
+  "result": {
+    "id": "redcyber:operating_table",
+    "count": 1
+  }
+}

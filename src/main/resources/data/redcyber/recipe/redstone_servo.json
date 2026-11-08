@@ -1,0 +1,27 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "IAI",
+    "CPC",
+    "IAI"
+  ],
+  "key": {
+    "I": {
+      "item": "minecraft:iron_ingot"
+    },
+    "A": {
+      "item": "redcyber:redstone_alloy_ingot"
+    },
+    "C": {
+      "item": "redcyber:redstone_circuit"
+    },
+    "P": {
+      "item": "minecraft:piston"
+    }
+  },
+  "result": {
+    "id": "redcyber:redstone_servo",
+    "count": 1
+  }
+}

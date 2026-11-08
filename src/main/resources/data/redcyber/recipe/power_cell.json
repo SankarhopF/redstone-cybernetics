@@ -1,0 +1,24 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "pattern": [
+    "AGA",
+    "GRG",
+    "AGA"
+  ],
+  "key": {
+    "A": {
+      "item": "redcyber:redstone_alloy_ingot"
+    },
+    "G": {
+      "item": "minecraft:glowstone_dust"
+    },
+    "R": {
+      "item": "minecraft:redstone_block"
+    }
+  },
+  "result": {
+    "id": "redcyber:power_cell",
+    "count": 1
+  }
+}
